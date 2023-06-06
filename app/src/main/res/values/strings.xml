@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Accueil</string>
+    <string name="Error">veiller renseigner tous les champs</string>
+    <string name="ErrorPassword">le mot de passe nest pas le meme</string>
+    <string name="succesCount">votre a été crée avec succès</string>
+    <string-array name="posts">
+        <item>Post 1</item>
+        <item>Post 2</item>
+        <item>Post 3</item>
+        <item>Post 4</item>
+        <item>Post 5</item>
+    </string-array>
+</resources>

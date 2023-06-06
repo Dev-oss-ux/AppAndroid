@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="190dp"
+        android:layout_height="176dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/purple_700"
+        android:scaleType="fitXY"
+        android:src="@drawable/cinema"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTitre"
+        android:layout_width="370dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="27dp"
+        android:background="@color/gray"
+        android:ems="10"
+        android:hint="Titre"
+        android:paddingStart="20dp"
+        android:inputType="text"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
+
+
+    <EditText
+        android:id="@+id/editDescription"
+        android:layout_width="373dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray"
+        android:ems="10"
+        android:hint="Description"
+        android:paddingStart="20dp"
+        android:inputType="text"
+        android:lines="5"
+        android:maxLines="5"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTitre" />
+
+    <Button
+        android:id="@+id/savebtn"
+        android:layout_width="384dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:text="Ajouter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.925"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
