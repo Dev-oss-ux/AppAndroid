@@ -27,7 +27,7 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/likeButton"
+        app:layout_constraintEnd_toStartOf="@+id/favorite"
         app:layout_constraintStart_toEndOf="@+id/imagePost"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Titre" />
@@ -68,11 +68,11 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvDescription1"
-        app:layout_constraintTop_toBottomOf="@+id/likeButton"
+        app:layout_constraintTop_toBottomOf="@+id/favorite"
         app:srcCompat="@drawable/baseline_share_24" />
 
     <ImageView
-        android:id="@+id/likeButton"
+        android:id="@+id/favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -81,6 +81,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvDescription1"
         app:layout_constraintTop_toBottomOf="@+id/imageShowPopup"
-        app:srcCompat="@drawable/baseline_favorite_border_24" />
+        app:srcCompat="@drawable/baseline_favorite_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

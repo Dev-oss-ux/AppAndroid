@@ -24,4 +24,9 @@
         android:title="Se déconnecter"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/itemFavorites"
+        android:icon="@drawable/stars"
+        android:title="Se déconnecter"
+        app:showAsAction="always" />
 </menu>
