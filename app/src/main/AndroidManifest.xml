@@ -12,36 +12,45 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile"
         tools:targetApi="31">
+
+        <activity
+            android:name=".FavoriteActivity"
+            android:parentActivityName=".HomeActivity"
+            android:exported="false" />
+
         <activity
             android:name=".AddMovieActivity"
             android:parentActivityName=".HomeActivity"
             android:exported="false" />
+
         <activity
             android:name=".ProfilActivity"
             android:exported="false"
             android:parentActivityName=".HomeActivity" />
+
         <activity
             android:name=".RegisterActivity"
             android:exported="false"
             android:label="Créer un compte"
             android:parentActivityName=".MainActivity" />
+
         <activity
             android:name=".PostDetailActivity"
             android:exported="false"
             android:parentActivityName=".HomeActivity" />
+
         <activity
             android:name=".HomeActivity"
             android:exported="false"
             android:label="@string/app_name" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

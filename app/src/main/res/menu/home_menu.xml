@@ -11,7 +11,7 @@
         android:id="@+id/itemAdd"
         android:icon="@drawable/ic_add"
         android:title="Ajouter"
-        app:showAsAction="always"
+
        />
     <item
         android:id="@+id/itemConfig"

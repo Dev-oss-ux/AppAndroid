@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.mobile.data.Post
 
 class HomeActivity : AppCompatActivity() {
@@ -103,6 +104,11 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.itemFavorites -> {
+                Intent(this, FavoriteActivity::class.java).also {
+                    startActivity(it)
+                }
+            }
             R.id.itemAdd -> {
                 Intent(this, AddMovieActivity::class.java).also {
                     startActivity(it)

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import com.example.mobile.data.Post
 
 class PostsAdapter(
@@ -40,6 +41,7 @@ class PostsAdapter(
 
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
+
                     R.id.itemShow -> {
                         Intent(mContext, PostDetailActivity::class.java).also { intent ->
                             intent.putExtra("titre", post.titre)
