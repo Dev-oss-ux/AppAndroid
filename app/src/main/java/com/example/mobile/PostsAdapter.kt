@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import com.example.mobile.data.Post
 
 class PostsAdapter(
@@ -86,9 +85,8 @@ class PostsAdapter(
     }
 
     private fun toggleFavoriteColor(imageView: ImageView, likes: Int) {
-        val color = if (likes > 0) Color.RED else Color.WHITE
+        val color = if (likes % 2 == 1) Color.RED else Color.WHITE
         val colorFilter = PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN)
         imageView.colorFilter = colorFilter
     }
-
 }
