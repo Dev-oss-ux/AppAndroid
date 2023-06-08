@@ -1,5 +1,6 @@
 package com.example.mobile
 
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -13,6 +14,8 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import com.example.mobile.data.Post
+
+import java.io.Serializable
 
 class PostsAdapter(
     private val mContext: Context,
@@ -40,7 +43,6 @@ class PostsAdapter(
 
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
-
                     R.id.itemShow -> {
                         Intent(mContext, PostDetailActivity::class.java).also { intent ->
                             intent.putExtra("titre", post.titre)
@@ -51,7 +53,6 @@ class PostsAdapter(
                             mContext.startActivity(intent)
                         }
                     }
-
                     R.id.itemDelete -> {
                         values.removeAt(position)
                         notifyDataSetChanged()
@@ -75,7 +76,9 @@ class PostsAdapter(
         favorite.setOnClickListener {
             post.jaime++
             toggleFavoriteColor(favorite, post.jaime)
-            notifyDataSetChanged()
+            val intent = Intent(mContext, FavoriteActivity::class.java)
+            intent.putExtra("film", post as Serializable)
+            mContext.startActivity(intent)
         }
 
         // Mise à jour de la couleur du bouton "favorite" en fonction de l'état initial du post
@@ -90,3 +93,4 @@ class PostsAdapter(
         imageView.colorFilter = colorFilter
     }
 }
+

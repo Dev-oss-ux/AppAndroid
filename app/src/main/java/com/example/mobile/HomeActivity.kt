@@ -9,8 +9,8 @@ import android.widget.ListView
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.mobile.data.Post
+
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var listPosts: ListView
@@ -62,26 +62,23 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText.isEmpty()) {
-                    clearSearchFilter() // Appeler la méthode pour réinitialiser le filtre
+                    clearSearchFilter()
                 } else {
                     filterPostsByTitle(newText)
                 }
                 return true
             }
-
-            private fun clearSearchFilter() {
-                fun clearSearchFilter() {
-                    filteredPostsArray.clear()
-                    filteredPostsArray.addAll(postsArray)
-                    adapter.clear()
-                    adapter.addAll(filteredPostsArray)
-                    adapter.notifyDataSetChanged()
-                }
-
-            }
         })
 
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun clearSearchFilter() {
+        filteredPostsArray.clear()
+        filteredPostsArray.addAll(postsArray)
+        adapter.clear()
+        adapter.addAll(filteredPostsArray)
+        adapter.notifyDataSetChanged()
     }
 
     private fun filterPostsByTitle(title: String) {
@@ -105,9 +102,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemFavorites -> {
-                Intent(this, FavoriteActivity::class.java).also {
-                    startActivity(it)
-                }
+                val intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
             }
             R.id.itemAdd -> {
                 Intent(this, AddMovieActivity::class.java).also {
@@ -129,7 +125,6 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intentProfil)
             }
             R.id.itemLogout -> {
-                // Modal de confirmation pour se déconnecter de l'application
                 showLogoutConfirmDialog()
             }
         }
