@@ -1,6 +1,5 @@
 package com.example.mobile
 
-
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -14,7 +13,6 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import com.example.mobile.data.Post
-
 import java.io.Serializable
 
 class PostsAdapter(
@@ -93,4 +91,3 @@ class PostsAdapter(
         imageView.colorFilter = colorFilter
     }
 }
-
