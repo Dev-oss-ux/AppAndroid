@@ -1,7 +1,9 @@
 package com.example.mobile.db
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.graphics.Bitmap
@@ -11,6 +13,20 @@ import com.example.mobile.data.User
 import java.io.ByteArrayOutputStream
 
 class MovieDatabase(mContext: Context) : SQLiteOpenHelper(mContext, DB_NAME, null, DB_VERSION) {
+
+    companion object {
+        private const val DB_NAME = "MovieDatabase.db"
+        private const val DB_VERSION = 1
+        private const val MOVIES_TABLE_NAME = "movies"
+        private const val USERS_TABLE_NAME = "users" // Ajout de la table "users"
+        private const val MOVIE_ID = "id"
+        private const val TITLE = "title"
+        private const val DESCRIPTION = "description"
+        private const val IMAGE = "image"
+        private const val NAME = "name" // Ajout de la colonne "name"
+        private const val EMAIL = "email" // Ajout de la colonne "email"
+        private const val PASSWORD = "password" // Ajout de la colonne "password"
+    }
     override fun onCreate(db: SQLiteDatabase?) {
         // Création des tables
         val createTableMovie = """
@@ -69,17 +85,30 @@ class MovieDatabase(mContext: Context) : SQLiteOpenHelper(mContext, DB_NAME, nul
         return result != -1L
     }
 
-    companion object {
-        private const val DB_NAME = "MovieDatabase.db"
-        private const val DB_VERSION = 1
-        private const val MOVIES_TABLE_NAME = "movies"
-        private const val USERS_TABLE_NAME = "users" // Ajout de la table "users"
-        private const val MOVIE_ID = "id"
-        private const val TITLE = "title"
-        private const val DESCRIPTION = "description"
-        private const val IMAGE = "image"
-        private const val NAME = "name" // Ajout de la colonne "name"
-        private const val EMAIL = "email" // Ajout de la colonne "email"
-        private const val PASSWORD = "password" // Ajout de la colonne "password"
+    // affiche les données de la base Movie
+    @SuppressLint("Range")
+    fun getMovies(): List<String> {
+
+
+        val data = mutableListOf<String>()
+        val selectQuery = "SELECT $TITLE FROM $MOVIES_TABLE_NAME"
+        val db = readableDatabase
+        val cursor: Cursor? = db.rawQuery(selectQuery, null)
+
+        cursor?.apply {
+            if (moveToFirst()) {
+                do {
+                    val name = getString(getColumnIndex(TITLE))
+                    data.add(name)
+                } while (moveToNext())
+            }
+            close()
+        }
+
+        return data
+
     }
+
+
+
 }

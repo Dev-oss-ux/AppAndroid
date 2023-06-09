@@ -7,9 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobile.data.Post
+import com.example.mobile.db.MovieDatabase
 
 
 class HomeActivity : AppCompatActivity() {
@@ -17,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
     private var postsArray = ArrayList<Post>()
     private lateinit var adapter: PostsAdapter
     private var filteredPostsArray = ArrayList<Post>()
+    private lateinit var movieDatabase: MovieDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,12 @@ class HomeActivity : AppCompatActivity() {
 
         listPosts = findViewById(R.id.listPosts)
 
+        movieDatabase = MovieDatabase(this)
+
+        movieDatabase.writableDatabase
+
+
+        /*
         postsArray = arrayListOf(
             Post("Babylon", "Note : 6.5", "Budget : 12.435.532 €", "Date de publication: 12-09-2022", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image1),
             Post("Tempete", "Note : 7.5", "Budget : 11.435.532 €", "Date de publication: 102-02-2021", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010 ...", R.drawable.image2),
@@ -31,6 +40,23 @@ class HomeActivity : AppCompatActivity() {
             Post("16 ans", "Note : 8.3", "Budget : 14.435.532 €", "Date de publication: 23-04-2012", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image4),
             Post("Rascals", "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5)
         )
+        */
+
+        val listMovies = movieDatabase.getMovies()
+
+
+        postsArray = arrayListOf(
+
+
+      )
+
+
+        for(movie in listMovies){
+            postsArray.add(Post(movie, "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5))
+
+        }
+
+
 
         adapter = PostsAdapter(this, R.layout.item_post, postsArray)
         listPosts.adapter = adapter
@@ -85,19 +111,24 @@ class HomeActivity : AppCompatActivity() {
         filteredPostsArray.clear()
 
         if (title.isNotEmpty()) {
+            Toast.makeText(this, "a titre", Toast.LENGTH_SHORT).show()
             for (post in postsArray) {
                 if (post.titre.contains(title, true)) {
                     filteredPostsArray.add(post)
                 }
             }
         } else {
+            Toast.makeText(this, "pas de titre", Toast.LENGTH_SHORT).show()
             filteredPostsArray.addAll(postsArray)
         }
 
         adapter.clear()
+        // rafraichissement de la liste
         adapter.addAll(filteredPostsArray)
         adapter.notifyDataSetChanged()
+
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

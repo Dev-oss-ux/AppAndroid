@@ -47,6 +47,7 @@ class AddMovieActivity : AppCompatActivity() {
 
                     if (result) {
                         Toast.makeText(this, "Film enregistré avec succès", Toast.LENGTH_SHORT).show()
+                        println("testmovie" + movieDatabase.getMovies())
                         finish()
                     } else {
                         Toast.makeText(this, "Erreur lors de l'enregistrement du film", Toast.LENGTH_SHORT).show()
