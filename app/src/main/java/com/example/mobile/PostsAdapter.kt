@@ -74,9 +74,6 @@ class PostsAdapter(
         favorite.setOnClickListener {
             post.jaime++
             toggleFavoriteColor(favorite, post.jaime)
-            val intent = Intent(mContext, FavoriteActivity::class.java)
-            intent.putExtra("film", post as Serializable)
-            mContext.startActivity(intent)
         }
 
         // Mise à jour de la couleur du bouton "favorite" en fonction de l'état initial du post
