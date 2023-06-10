@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
@@ -25,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+
+
         listPosts = findViewById(R.id.listPosts)
 
         movieDatabase = MovieDatabase(this)
@@ -32,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
         movieDatabase.writableDatabase
 
 
-        /*
+
         postsArray = arrayListOf(
             Post("Babylon", "Note : 6.5", "Budget : 12.435.532 €", "Date de publication: 12-09-2022", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image1),
             Post("Tempete", "Note : 7.5", "Budget : 11.435.532 €", "Date de publication: 102-02-2021", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010 ...", R.drawable.image2),
@@ -40,21 +43,6 @@ class HomeActivity : AppCompatActivity() {
             Post("16 ans", "Note : 8.3", "Budget : 14.435.532 €", "Date de publication: 23-04-2012", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image4),
             Post("Rascals", "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5)
         )
-        */
-
-        val listMovies = movieDatabase.getMovies()
-
-
-        postsArray = arrayListOf(
-
-
-      )
-
-
-        for(movie in listMovies){
-            postsArray.add(Post(movie, "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5))
-
-        }
 
 
 
