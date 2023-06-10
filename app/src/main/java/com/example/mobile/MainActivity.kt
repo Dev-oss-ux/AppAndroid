@@ -12,8 +12,8 @@ import android.widget.Toast
 import com.example.mobile.db.MovieDatabase
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var db: MovieDatabase
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var db: MovieDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             Intent(this, HomeActivity::class.java).also {
                 it.putExtra("email", emailSharedPreferences)
                 startActivity(it)
+                 // Terminer l'activité MainActivity pour empêcher le retour en arrière
             }
         }
 
@@ -40,37 +41,33 @@ class MainActivity : AppCompatActivity() {
             val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
             if (txtEmail.trim().isEmpty() || txtPassword.trim().isEmpty()) {
-                Toast.makeText(this, "Vous devez remplir tous les champs", Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(this, "Vous devez remplir tous les champs", Toast.LENGTH_LONG).show()
             } else {
-                val correctEmail = "barry@gmail.com"
-                val correctPassword = "azerty"
-
-                if (correctEmail == txtEmail && correctPassword == txtPassword) {
+                val user = db.getUserByEmail(txtEmail)
+                if (user != null && user.password == txtPassword) {
                     email.setText("")
                     password.setText("")
 
-                    // Boolean SharedPreferences
-                    val editor = sharedPreferences.edit()
-                    editor.putBoolean("is_authenticated", true)
-                    editor.putString("email", txtEmail)
+                   val editor = sharedPreferences.edit()
+                   editor.putBoolean("is_authenticated", true)
+                   editor.putString("email", txtEmail)
                     editor.apply()
 
-                    val intentToHomeActivity = Intent(this, HomeActivity::class.java).also {
-                        it.putExtra("email", txtEmail)
-                        startActivity(it)
+                    val intentToHomeActivity = Intent(this, HomeActivity::class.java).apply {
+                        putExtra("email", txtEmail)
                     }
-
+                    startActivity(intentToHomeActivity)
+                    finish() // Terminer l'activité MainActivity pour empêcher le retour en arrière
                 } else {
-                    Toast.makeText(this, "Email ou mot de passe incorrect", Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(this, "Email ou mot de passe incorrect", Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
+
         tvRegister.setOnClickListener {
             Intent(this, RegisterActivity::class.java).also {
                 startActivity(it)
+                finish() // Terminer l'activité MainActivity pour empêcher le retour en arrière
             }
         }
     }

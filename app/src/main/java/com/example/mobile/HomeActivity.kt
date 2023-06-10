@@ -27,10 +27,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
 
+        // Initialise la base de données
+        movieDatabase = MovieDatabase(this)
 
         listPosts = findViewById(R.id.listPosts)
-
-        movieDatabase = MovieDatabase(this)
 
         movieDatabase.writableDatabase
 
@@ -158,16 +158,15 @@ class HomeActivity : AppCompatActivity() {
             val editor = this.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
             editor.remove("is_authenticated")
             editor.apply()
+
+            // Ajoutez l'Intent pour rediriger vers la page d'authentification
+            val intentToMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentToMainActivity)
+
             finish()
         }
-        builder.setNegativeButton("NON") { dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-        builder.setNeutralButton("Annuler") { dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.show()
+        builder.setNegativeButton("NON", null)
+        builder.show()
     }
+
 }

@@ -1,8 +1,6 @@
 package com.example.mobile
 
-
 import android.content.Intent
-import android.content.SharedPreferences.Editor
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,11 +14,9 @@ import com.example.mobile.db.MovieDatabase
 class RegisterActivity : AppCompatActivity() {
     lateinit var db: MovieDatabase
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-
 
         db = MovieDatabase(this)
 
@@ -31,7 +27,6 @@ class RegisterActivity : AppCompatActivity() {
         val tvError = findViewById<TextView>(R.id.tvError)
         val register = findViewById<Button>(R.id.register)
 
-
         register.setOnClickListener {
             tvError.visibility = View.INVISIBLE
             tvError.text = ""
@@ -41,30 +36,27 @@ class RegisterActivity : AppCompatActivity() {
             val password = editPassword.text.toString()
             val passwordConfirm = editConfirm.text.toString()
 
-            //verifier
+            // Vérification des champs
             if (name.isEmpty() || email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
-                tvError.text =
-                    getString(R.string.Error) // text renseigné depsuis le fichier string
+                tvError.text = getString(R.string.Error) // Texte renseigné depuis le fichier string
                 tvError.visibility = View.VISIBLE
             } else {
-                //verifier si le saisi du mp correspond
+                // Vérification de la correspondance des mots de passe
                 if (password != passwordConfirm) {
-                    tvError.text =
-                        getString(R.string.ErrorPassword) // text renseigné depuis le fichier string
+                    tvError.text = getString(R.string.ErrorPassword) // Texte renseigné depuis le fichier string
                     tvError.visibility = View.VISIBLE
                 } else {
                     val user = User(0, name, email, password)
-                    val isInserted = db.addUser(user) // inserer dans la bd
+                    val isInserted = db.addUser(user) // Insertion dans la base de données
                     if (isInserted) {
                         Toast.makeText(this, getString(R.string.succesCount), Toast.LENGTH_LONG).show()
                         Intent(this, HomeActivity::class.java).also {
-                            it.putExtra("eamail", email)
+                            it.putExtra("email", email)
                             startActivity(it)
                         }
                     }
                 }
             }
-
         }
     }
 }
