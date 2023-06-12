@@ -18,7 +18,7 @@
         android:contentDescription="Profile Image"
         android:focusable="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/cinema" />
+        android:src="@drawable/ic_name" />
 
     <TextView
         android:id="@+id/textView2"

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mobile.data.Post
 import com.example.mobile.db.MovieDatabase
-
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var listPosts: ListView
@@ -26,25 +24,22 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-        // Initialise la base de données
-        movieDatabase = MovieDatabase(this)
-
         listPosts = findViewById(R.id.listPosts)
+
+        movieDatabase = MovieDatabase(this)
 
         movieDatabase.writableDatabase
 
+        val listMovies = movieDatabase.getMovies()
 
 
         postsArray = arrayListOf(
-            Post("Babylon", "Note : 6.5", "Budget : 12.435.532 €", "Date de publication: 12-09-2022", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image1),
-            Post("Tempete", "Note : 7.5", "Budget : 11.435.532 €", "Date de publication: 102-02-2021", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010 ...", R.drawable.image2),
-            Post("Hostalga", "Note : 5.5", "Budget : 2.435.532 €", "Date de publication: 01-09-2023", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image3),
-            Post("16 ans", "Note : 8.3", "Budget : 14.435.532 €", "Date de publication: 23-04-2012", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image4),
-            Post("Rascals", "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5)
         )
 
 
+        for (movie in listMovies) {
+            postsArray.add(Post(movie, "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5))
+        }
 
         adapter = PostsAdapter(this, R.layout.item_post, postsArray)
         listPosts.adapter = adapter
@@ -111,12 +106,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         adapter.clear()
-        // rafraichissement de la liste
         adapter.addAll(filteredPostsArray)
         adapter.notifyDataSetChanged()
-
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -158,15 +150,35 @@ class HomeActivity : AppCompatActivity() {
             val editor = this.getSharedPreferences("app_state", Context.MODE_PRIVATE).edit()
             editor.remove("is_authenticated")
             editor.apply()
-
-            // Ajoutez l'Intent pour rediriger vers la page d'authentification
-            val intentToMainActivity = Intent(this, MainActivity::class.java)
-            startActivity(intentToMainActivity)
-
             finish()
         }
-        builder.setNegativeButton("NON", null)
-        builder.show()
+        builder.setNegativeButton("NON") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+        builder.setNeutralButton("Annuler") { dialogInterface, _ ->
+            dialogInterface.dismiss()
+        }
+
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
     }
 
+    private fun deleteMovie(movieId: Int) {
+        val result = movieDatabase.deleteMovie(movieId)
+        if (result) {
+            Toast.makeText(this, "Film supprimé avec succès", Toast.LENGTH_SHORT).show()
+            refreshMovieList()
+        } else {
+            Toast.makeText(this, "Erreur lors de la suppression du film", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun refreshMovieList() {
+        val listMovies = movieDatabase.getMovies()
+        postsArray.clear()
+        for (movie in listMovies) {
+            postsArray.add(Post(movie, "Note : 7.2", "Budget : 23.435.532 €", "Date de publication: 11-05-2019", "Inception est un film 1 de science-fiction d'action réalisé par Christopher Nolan en 2010...", R.drawable.image5))
+        }
+        adapter.notifyDataSetChanged()
+    }
 }
